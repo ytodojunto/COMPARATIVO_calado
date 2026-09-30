@@ -2,25 +2,51 @@
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Calado Río de la Plata y Paraná</title>
 <style>
-:root{--bg:#f5f7fa;--card:#fff;--tx:#14202b;--mu:#5b6b7a;--bd:#d8e0e8;--a:#1f4e78;--b:#d9480f;--c:#2b8a3e;--w:#b08900}
-@media(prefers-color-scheme:dark){:root{--bg:#0f1720;--card:#17212c;--tx:#e6edf3;--mu:#94a3b3;--bd:#2a3846;--a:#6cb2ee;--b:#ff8c5a;--c:#6fd07f;--w:#e3b341}}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.4 system-ui,sans-serif}
-header{padding:14px 16px 6px}h1{font-size:19px;margin:0}small,.mu{color:var(--mu)}
-nav{display:flex;gap:6px;padding:8px 16px;overflow-x:auto}nav button{border:1px solid var(--bd);background:var(--card);color:var(--tx);padding:8px 14px;border-radius:999px;font-size:14px;white-space:nowrap}
-nav button.on{background:var(--a);color:#fff;border-color:var(--a)}
-main{padding:0 16px 40px;max-width:980px;margin:auto}.card{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:12px;margin:10px 0}
-select{padding:8px;font-size:15px;border-radius:8px;border:1px solid var(--bd);background:var(--card);color:var(--tx)}
-table{border-collapse:collapse;width:100%;font-size:14px}th,td{padding:5px 6px;border-bottom:1px solid var(--bd);text-align:right;white-space:nowrap}th:first-child,td:first-child{text-align:left}
-.wrap{overflow-x:auto}.warn{background:#fff3cd;color:#664d03;padding:8px 12px;border-radius:8px;margin:8px 0}
-.lg span{display:inline-block;margin-right:12px;font-size:13px}.lg i{display:inline-block;width:12px;height:3px;margin-right:4px;vertical-align:middle}
-svg{width:100%;height:auto;display:block}footer{padding:10px 16px;font-size:12px;color:var(--mu);max-width:980px;margin:auto}
-.nb{border:1px solid var(--bd);background:var(--card);color:var(--tx);padding:7px 12px;border-radius:8px;font-size:15px}</style></head><body>
-<header><h1>Calado · Río de la Plata y Paraná</h1><small id="gen">cargando…</small></header>
+:root{--bg:#07182a;--card:rgba(255,255,255,.065);--tx:#eaf2fa;--mu:#9db2c6;--bd:rgba(255,255,255,.13);--a:#4cc9f0;--b:#ff9f43;--c:#6fd07f;--w:#f7d154;--acc:#1b8fd6}
+*{box-sizing:border-box}html{background:#07182a}
+body{margin:0;color:var(--tx);font:15px/1.45 system-ui,-apple-system,Segoe UI,sans-serif;min-height:100vh;
+ background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='120' viewBox='0 0 600 120'%3E%3Cpath d='M0 60 Q75 20 150 60 T300 60 T450 60 T600 60' fill='none' stroke='%23ffffff' stroke-opacity='.05' stroke-width='2'/%3E%3Cpath d='M0 95 Q75 55 150 95 T300 95 T450 95 T600 95' fill='none' stroke='%23ffffff' stroke-opacity='.04' stroke-width='2'/%3E%3C/svg%3E") repeat-x 0 100%/600px 120px,radial-gradient(1200px 500px at 85% -10%,rgba(76,201,240,.22),transparent 60%),radial-gradient(900px 500px at -10% 40%,rgba(27,143,214,.18),transparent 60%),linear-gradient(180deg,#0a2540 0%,#07182a 55%,#050f1b 100%);background-attachment:fixed}
+header{display:flex;align-items:center;gap:14px;padding:16px 18px 10px;max-width:980px;margin:auto}
+.logo{height:52px;max-width:130px;object-fit:contain;background:#fff;padding:3px 6px;border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,.4)}.logofb{font-weight:800;letter-spacing:.12em;font-size:17px;color:#fff;border:2px solid var(--a);padding:6px 10px;border-radius:8px;display:none}
+.ttl{flex:1;min-width:0}h1{font-size:19px;margin:0;letter-spacing:.01em}.sub{font-size:12.5px;color:var(--mu)}
+.out{border:1px solid var(--bd);background:var(--card);color:var(--mu);padding:6px 10px;border-radius:8px;font-size:12px;cursor:pointer}
+small,.mu{color:var(--mu)}
+nav{display:flex;gap:8px;padding:8px 18px;overflow-x:auto;max-width:980px;margin:auto}
+nav button{border:1px solid var(--bd);background:var(--card);color:var(--tx);padding:9px 16px;border-radius:999px;font-size:14px;white-space:nowrap;backdrop-filter:blur(6px);cursor:pointer}
+nav button.on{background:linear-gradient(135deg,var(--acc),#3ab6ea);color:#fff;border-color:transparent;box-shadow:0 4px 14px rgba(27,143,214,.45)}
+main{padding:0 18px 50px;max-width:980px;margin:auto}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px;margin:12px 0;backdrop-filter:blur(8px);box-shadow:0 8px 28px rgba(0,0,0,.28)}
+select,input{padding:9px 10px;font-size:15px;border-radius:9px;border:1px solid var(--bd);background:rgba(7,24,42,.75);color:var(--tx)}
+table{border-collapse:collapse;width:100%;font-size:14px}th,td{padding:6px 7px;border-bottom:1px solid var(--bd);text-align:right;white-space:nowrap}th{color:var(--mu);font-weight:600;font-size:12.5px;text-transform:uppercase;letter-spacing:.04em}th:first-child,td:first-child{text-align:left}
+.wrap{overflow-x:auto}.warn{background:rgba(247,209,84,.14);border:1px solid rgba(247,209,84,.4);color:#f7d154;padding:8px 12px;border-radius:10px;margin:8px 0}
+.lg span{display:inline-block;margin-right:12px;font-size:13px;color:var(--mu)}.lg i{display:inline-block;width:12px;height:3px;margin-right:4px;vertical-align:middle}
+svg{width:100%;height:auto;display:block}footer{padding:12px 18px 30px;font-size:12px;color:var(--mu);max-width:980px;margin:auto}
+.nb{border:1px solid var(--bd);background:var(--card);color:var(--tx);padding:8px 13px;border-radius:9px;font-size:15px;cursor:pointer}
+#login{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:20px;z-index:10;background:rgba(3,10,18,.55);backdrop-filter:blur(3px)}
+#login .box{width:100%;max-width:360px;background:rgba(10,30,50,.88);border:1px solid var(--bd);border-radius:18px;padding:26px 22px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+#login .logo{height:96px;max-width:240px;margin:0 auto 8px;display:block;padding:6px 10px}#login h2{margin:8px 0 2px;font-size:18px}#login p{margin:0 0 16px;color:var(--mu);font-size:13px}
+#login input{width:100%;margin:6px 0}#login button{width:100%;margin-top:12px;padding:12px;border:0;border-radius:10px;background:linear-gradient(135deg,var(--acc),#3ab6ea);color:#fff;font-size:16px;font-weight:600;cursor:pointer}
+#err{color:#ff8c8c;font-size:13px;min-height:18px;margin-top:8px}
+</style></head><body>
+<header><img class="logo" src="logo.png" alt="MULTIPAR" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><div class="logofb">MULTIPAR</div>
+<div class="ttl"><h1>Calado · Río de la Plata y Paraná</h1><div class="sub" id="gen">—</div></div><button class="out" id="out" style="display:none" onclick="logout()">Salir</button></header>
+<div id="login"><form class="box" onsubmit="doLogin(event)"><img class="logo" src="logo.png" alt="" onerror="this.style.display='none'"><h2>MULTIPAR S.A.</h2><p>Calado · Río de la Plata y Paraná<br>Acceso para operaciones y prácticos</p>
+<input id="u" placeholder="Usuario" autocomplete="username" autocapitalize="none"><input id="p" type="password" placeholder="Contraseña" autocomplete="current-password"><button>Ingresar</button><div id="err"></div></form></div>
 <nav id="nav"></nav><main id="m"></main>
-<footer>Datos: SHN (alturas y pronósticos de marea), INA (Paraná y Delta), SMN (viento), CARP (históricos). Horas ART. Información de apoyo: <b>no es un dato oficial</b>; verificar siempre con la fuente. Modelo de Norden: preliminar.</footer>
+<footer>Datos: SHN (alturas y pronósticos de marea), INA (Paraná y Delta), SMN (viento), CARP (históricos). Horas ART. Información de apoyo: <b>no es un dato oficial</b>; verificar siempre con la fuente.</footer>
 <script>
 const TABS=['Estuario','Paraná','Viento','Historial'];let S,tab=0,sel={},HI=null,HD={};
 const $=(s,e=document)=>e.querySelector(s);
+let KEY=null;const b64=x=>Uint8Array.from(atob(x),c=>c.charCodeAt(0));
+async function pbk(pw,salt){const k=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveKey']);return crypto.subtle.deriveKey({name:'PBKDF2',salt,iterations:200000,hash:'SHA-256'},k,{name:'AES-GCM',length:256},false,['decrypt'])}
+async function unlock(user,pw){const acc=await (await fetch('data/access.json?'+Date.now())).json();
+  const id=[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(user.trim().toLowerCase())))].map(x=>x.toString(16).padStart(2,'0')).join('');
+  const r=acc.users.find(x=>x.id==id);if(!r)throw 0;const wk=await pbk(pw,b64(r.s));
+  const raw=await crypto.subtle.decrypt({name:'AES-GCM',iv:b64(r.iv)},wk,b64(r.w));return new Uint8Array(raw)}
+async function setKey(raw){KEY=await crypto.subtle.importKey('raw',raw,'AES-GCM',false,['decrypt'])}
+async function getJ(path){const t=await (await fetch(path+'?'+Date.now())).text();const d=b64(t.trim());const p=await crypto.subtle.decrypt({name:'AES-GCM',iv:d.slice(0,12)},KEY,d.slice(12));return JSON.parse(new TextDecoder().decode(p))}
+function logout(){try{sessionStorage.removeItem('k')}catch(e){}location.reload()}
+async function doLogin(e){e.preventDefault();$('#err').textContent='';try{const raw=await unlock($('#u').value,$('#p').value);try{sessionStorage.setItem('k',btoa(String.fromCharCode(...raw)))}catch(e){}await setKey(raw);await boot()}catch(x){$('#err').textContent='Usuario o contraseña incorrectos'}}
 const ART=t=>new Date(t+':00-03:00');                     // 'YYYY-MM-DDTHH:MM' ART
 const fmt=d=>d.toLocaleString('es-AR',{timeZone:'America/Argentina/Buenos_Aires',weekday:'short',day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false});
 const hh=d=>d.toLocaleTimeString('es-AR',{timeZone:'America/Argentina/Buenos_Aires',hour:'2-digit',minute:'2-digit',hour12:false});
@@ -30,8 +56,8 @@ function chart(series,{w=560,h=300,unit='m',now=true}={}){
   const pad=(y1-y0)*.1||.2;const pos=y0>=0;y0-=pad;y1+=pad;if(pos&&unit=='kn')y0=Math.max(0,y0);const L=50,B=28,T=8,Rr=8,X=t=>L+(t-x0)/(x1-x0||1)*(w-L-Rr),Y=v=>T+(1-(v-y0)/(y1-y0))*(h-T-B);
   let o=`<svg viewBox="0 0 ${w} ${h}">`;
   for(let i=0;i<=4;i++){const v=y0+(y1-y0)*i/4;o+=`<line x1="${L}" x2="${w-Rr}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--bd)"/><text x="${L-5}" y="${Y(v)+4}" text-anchor="end" font-size="15" fill="var(--mu)">${v.toFixed(2)}</text>`}
-  const d0=new Date(x0);d0.setMinutes(0,0,0);const st=(x1-x0)>6*864e5?864e5:(x1-x0)>2*864e5?6*36e5:3*36e5;
-  for(let t=Math.ceil(x0/st)*st;t<=x1;t+=st){const d=new Date(t);o+=`<line x1="${X(t)}" x2="${X(t)}" y1="${T}" y2="${h-B}" stroke="var(--bd)" stroke-dasharray="2 3"/><text x="${X(t)}" y="${h-8}" text-anchor="middle" font-size="13" fill="var(--mu)">${st>=864e5?d.toLocaleDateString('es-AR',{timeZone:'America/Argentina/Buenos_Aires',day:'2-digit',month:'2-digit'}):hh(d)}</text>`}
+  const d0=new Date(x0);d0.setMinutes(0,0,0);const st=(x1-x0)>6*864e5?864e5:(x1-x0)>2*864e5?12*36e5:3*36e5;
+  for(let t=Math.ceil(x0/st)*st;t<=x1;t+=st){const d=new Date(t);o+=`<line x1="${X(t)}" x2="${X(t)}" y1="${T}" y2="${h-B}" stroke="var(--bd)" stroke-dasharray="2 3"/><text x="${X(t)}" y="${h-8}" text-anchor="middle" font-size="13" fill="var(--mu)">${(st>=864e5||hh(d)=='00:00')?d.toLocaleDateString('es-AR',{timeZone:'America/Argentina/Buenos_Aires',day:'2-digit',month:'2-digit'}):hh(d)}</text>`}
   if(now){const n=Date.now();if(n>x0&&n<x1)o+=`<line x1="${X(n)}" x2="${X(n)}" y1="${T}" y2="${h-B}" stroke="var(--w)" stroke-width="1.5"/>`}
   for(const s of series){if(s.dots){for(const p of s.pts)o+=`<circle cx="${X(p[0])}" cy="${Y(p[1])}" r="4.5" fill="${s.c}"/>`;continue}
     o+=`<polyline fill="none" stroke="${s.c}" stroke-width="${s.sw||2}" ${s.dash?'stroke-dasharray="6 4"':''} points="${s.pts.map(p=>X(p[0]).toFixed(1)+','+Y(p[1]).toFixed(1)).join(' ')}"/>`}
@@ -64,7 +90,7 @@ function viento(){const V=S.viento;if(!V)return'<p>Sin datos de viento</p>';cons
 const SMNK={'Buenos Aires':'Buenos Aires (Palermo)','Oyarvide':'Oyarvide (Canal Punta Indio)','San Clemente':'San Clemente del Tuyú'};
 const DT=(ds,hm)=>+new Date(ds+'T'+hm+':00-03:00');
 function shiftDay(n){const i=HI.dias.indexOf(sel.hd)+n;if(i>=0&&i<HI.dias.length){sel.hd=HI.dias[i];loadDay()}}
-async function loadDay(){if(!HD[sel.hd]){try{HD[sel.hd]=await (await fetch('data/hist/'+sel.hd+'.json')).json()}catch(e){HD[sel.hd]=null}}render()}
+async function loadDay(){if(!HD[sel.hd]){try{HD[sel.hd]=await getJ('data/hist/'+sel.hd+'.enc')}catch(e){HD[sel.hd]=null}}render()}
 function historial(){if(!HI)return'<p class="mu">Cargando historial…</p>';const d=HD[sel.hd];const dias=HI.dias;
   const head=`<div class="card"><button class="nb" onclick="shiftDay(-1)">◀</button> <select onchange="sel.hd=this.value;loadDay()">${dias.slice().reverse().map(x=>`<option ${x==sel.hd?'selected':''}>${x}</option>`).join('')}</select> <button class="nb" onclick="shiftDay(1)">▶</button> <small class="mu">${dias.length} días disponibles</small>`;
   if(!d)return head+'<p class="mu">Sin datos para ese día.</p></div>';
@@ -79,6 +105,11 @@ function historial(){if(!HI)return'<p class="mu">Cargando historial…</p>';cons
   return head+` ${pick('he',names).replace("render()","render()")}${chart(ser,{now:false})}${tb}</div>${vi}${pt}`}
 function render(){$('#nav').innerHTML=TABS.map((t,i)=>`<button class="${i==tab?'on':''}" onclick="tab=${i};render()">${t}</button>`).join('');
   $('#m').innerHTML=fresh()+[estuario,parana,viento,historial][tab]()}
-(async()=>{try{S=await (await fetch('data/site.json?'+Date.now())).json();try{HI=await (await fetch('data/hist/index.json?'+Date.now())).json();sel.hd=HI.dias.at(-1);await loadDay()}catch(e){HI={dias:[]}}
-  $('#gen').textContent='Actualizado '+fmt(new Date(S.generado_utc));render()}catch(e){$('#gen').textContent='No se pudieron cargar los datos'}})();
+async function boot(){try{S=await getJ('data/site.enc')}catch(e){$('#login').style.display='flex';$('#err').textContent='No se pudieron descifrar los datos (¿sesión vencida?)';try{sessionStorage.removeItem('k')}catch(x){};return}
+  $('#login').style.display='none';$('#out').style.display='block';
+  try{HI=await getJ('data/hist/index.enc');sel.hd=HI.dias.at(-1);await loadDay()}catch(e){HI={dias:[]}}
+  $('#gen').textContent='Actualizado '+fmt(new Date(S.generado_utc));render()}
+(async()=>{let k=null;try{k=sessionStorage.getItem('k')}catch(e){}
+  if(k){try{await setKey(b64(k));await boot();return}catch(e){}}
+  $('#login').style.display='flex'})();
 </script></body></html>

@@ -1,0 +1,54 @@
+name: Comparativo diario calado
+
+on:
+  workflow_dispatch:
+    inputs:
+      fecha:
+        description: "Dia a comparar AAAA-MM-DD (vacio = ayer ART)"
+        required: false
+  schedule:
+    - cron: "40 14 * * *"   # 11:40 ART, despues de captura INA (13:00 UTC) y SHN
+
+permissions:
+  contents: write
+
+jobs:
+  comparar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: ytodojunto/SHN_captura_pronosticos
+          path: shn
+      - uses: actions/checkout@v4
+        with:
+          repository: ytodojunto/INA_captura_delta_2
+          path: ina
+      - uses: actions/checkout@v4
+        with:
+          repository: ytodojunto/SMN_captura_viento
+          path: smn
+      - uses: actions/checkout@v4
+        with:
+          repository: ytodojunto/CARP_historicos_martin_garcia
+          path: carp
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Instalar dependencias
+        run: pip install numpy pandas
+      - name: Correr comparativo
+        env:
+          BASE: "."
+        run: python comparativo_diario.py ${{ github.event.inputs.fecha }}
+      - name: Commitear resultados
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/
+          git diff --staged --quiet || git commit -m "Comparativo $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          git pull --rebase origin main
+          git push

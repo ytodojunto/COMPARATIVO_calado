@@ -14,12 +14,12 @@ table{border-collapse:collapse;width:100%;font-size:14px}th,td{padding:5px 6px;b
 .wrap{overflow-x:auto}.warn{background:#fff3cd;color:#664d03;padding:8px 12px;border-radius:8px;margin:8px 0}
 .lg span{display:inline-block;margin-right:12px;font-size:13px}.lg i{display:inline-block;width:12px;height:3px;margin-right:4px;vertical-align:middle}
 svg{width:100%;height:auto;display:block}footer{padding:10px 16px;font-size:12px;color:var(--mu);max-width:980px;margin:auto}
-</style></head><body>
+.nb{border:1px solid var(--bd);background:var(--card);color:var(--tx);padding:7px 12px;border-radius:8px;font-size:15px}</style></head><body>
 <header><h1>Calado · Río de la Plata y Paraná</h1><small id="gen">cargando…</small></header>
 <nav id="nav"></nav><main id="m"></main>
 <footer>Datos: SHN (alturas y pronósticos de marea), INA (Paraná y Delta), SMN (viento), CARP (históricos). Horas ART. Información de apoyo: <b>no es un dato oficial</b>; verificar siempre con la fuente. Modelo de Norden: preliminar.</footer>
 <script>
-const TABS=['Estuario','Paraná','Viento','Aciertos'];let S,R,tab=0,sel={};
+const TABS=['Estuario','Paraná','Viento','Historial'];let S,tab=0,sel={},HI=null,HD={};
 const $=(s,e=document)=>e.querySelector(s);
 const ART=t=>new Date(t+':00-03:00');                     // 'YYYY-MM-DDTHH:MM' ART
 const fmt=d=>d.toLocaleString('es-AR',{timeZone:'America/Argentina/Buenos_Aires',weekday:'short',day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false});
@@ -61,10 +61,24 @@ function parana(){const opts=PAR.filter(k=>S.ina[k]).map(k=>NM[k]);sel.par=sel.p
 function viento(){const V=S.viento;if(!V)return'<p>Sin datos de viento</p>';const names=Object.keys(V.estaciones);sel.vi=sel.vi||'Pilote Norden';const p=V.estaciones[sel.vi]||[];
   const pts=p.map(x=>[+new Date(x[0]),x[1]*3.6/1.852]);const card=d=>['N','NE','E','SE','S','SO','O','NO'][Math.round(d/45)%8];
   return`<div class="card">${pick('vi',names)} <small class="mu">ciclo SMN ${V.ciclo_init.slice(0,13)} UTC · nudos</small>${chart([{n:'viento 10 m (nudos)',c:'var(--a)',pts}],{unit:'kn'})}</div><div class="card wrap"><table><tr><th>Hora</th><th>Viento (nudos)</th><th>Dirección</th></tr>`+p.filter((_,i)=>i%3==0).slice(0,24).map(x=>`<tr><td>${fmt(new Date(x[0]))}</td><td>${(x[1]*3.6/1.852).toFixed(0)}</td><td>${card(x[2])} (${x[2]}°)</td></tr>`).join('')+'</table></div>'}
-function aciertos(){if(!R)return'<p>Sin resumen todavía</p>';const rows=[];for(const[e,v]of Object.entries(R.por_estacion))for(const[s,d]of Object.entries(v))rows.push(`<tr><td>${e}</td><td>${s.toUpperCase()}</td><td>${d.n}</td><td>${d.mae_alt_m}</td><td>${d.sesgo_alt_m}</td><td>${d.mae_hora_min}</td></tr>`);
-  return`<div class="card"><p>Error = real − pronóstico. Días acumulados: <b>${R.dias.length}</b> (${R.dias[0]} → ${R.dias.at(-1)}). Con pocos días los números son orientativos.</p><div class="wrap"><table><tr><th>Estación</th><th>Fuente</th><th>N</th><th>Error alt. (m)</th><th>Sesgo (m)</th><th>Error hora (min)</th></tr>${rows.join('')}</table></div></div>`}
+const SMNK={'Buenos Aires':'Buenos Aires (Palermo)','Oyarvide':'Oyarvide (Canal Punta Indio)','San Clemente':'San Clemente del Tuyú'};
+const DT=(ds,hm)=>+new Date(ds+'T'+hm+':00-03:00');
+function shiftDay(n){const i=HI.dias.indexOf(sel.hd)+n;if(i>=0&&i<HI.dias.length){sel.hd=HI.dias[i];loadDay()}}
+async function loadDay(){if(!HD[sel.hd]){try{HD[sel.hd]=await (await fetch('data/hist/'+sel.hd+'.json')).json()}catch(e){HD[sel.hd]=null}}render()}
+function historial(){if(!HI)return'<p class="mu">Cargando historial…</p>';const d=HD[sel.hd];const dias=HI.dias;
+  const head=`<div class="card"><button class="nb" onclick="shiftDay(-1)">◀</button> <select onchange="sel.hd=this.value;loadDay()">${dias.slice().reverse().map(x=>`<option ${x==sel.hd?'selected':''}>${x}</option>`).join('')}</select> <button class="nb" onclick="shiftDay(1)">▶</button> <small class="mu">${dias.length} días disponibles</small>`;
+  if(!d)return head+'<p class="mu">Sin datos para ese día.</p></div>';
+  const names=Object.keys(d.shn_obs);sel.he=names.includes(sel.he)?sel.he:(names.includes('Buenos Aires')?'Buenos Aires':names[0]);const n=sel.he;
+  const ser=[{n:'SHN observado',c:'var(--a)',pts:(d.shn_obs[n]||[]).map(p=>[DT(d.fecha,p[0]),p[1]])}];
+  const ev=d.shn_pron.filter(e=>e.est==n);if(ev.length)ser.push({n:'SHN pronóstico (pleamar/bajamar)',c:'var(--b)',dots:1,pts:ev.map(e=>[DT(d.fecha,e.t),e.h])});
+  const ik=INAK[n];if(ik&&d.ina_pron[ik]&&d.ina_pron[ik].pts.length>3)ser.push({n:'INA pronóstico',c:'var(--c)',dash:1,pts:d.ina_pron[ik].pts.map(p=>[DT(d.fecha,p[0]),p[1]])});
+  if(ik&&d.ina_obs[ik]&&d.ina_obs[ik].length>3)ser.push({n:'INA observado',c:'var(--w)',sw:1.5,pts:d.ina_obs[ik].map(p=>[DT(d.fecha,p[0]),p[1]])});
+  const tb=ev.length?`<div class="wrap"><table><tr><th>Evento</th><th>Pronóstico SHN</th><th>Altura (m)</th></tr>`+ev.map(e=>`<tr><td>${e.estado.toLowerCase()}</td><td>${e.t}</td><td>${e.h.toFixed(2)}</td></tr>`).join('')+'</table></div>':'<p class="mu">Sin pronóstico SHN para esta estación ese día.</p>';
+  let vi='';const vk=SMNK[n]||n;if(d.viento&&d.viento[vk]){vi=`<div class="card"><b>Viento pronosticado (SMN, ciclo ${d.viento_ciclo.slice(0,13)} UTC)</b>`+chart([{n:'viento 10 m (nudos)',c:'var(--a)',pts:d.viento[vk].map(x=>[+new Date(x[0]),x[1]*3.6/1.852])}],{unit:'kn',now:false})+'</div>'}
+  const pk=PAR.filter(k=>d.ina_obs[k]);const pt=pk.length?`<div class="card"><b>Paraná · INA observado ese día</b><div class="wrap"><table><tr><th>Estación</th><th>Observado (m)</th><th>Pron. INA (m)</th></tr>`+pk.map(k=>{const o=d.ina_obs[k],p=d.ina_pron[k];return`<tr><td>${NM[k]||k}</td><td>${(o.reduce((a,b)=>a+b[1],0)/o.length).toFixed(2)}</td><td>${p&&p.pts.length?(p.pts.reduce((a,b)=>a+b[1],0)/p.pts.length).toFixed(2):'—'}</td></tr>`}).join('')+'</table></div></div>':'';
+  return head+` ${pick('he',names).replace("render()","render()")}${chart(ser,{now:false})}${tb}</div>${vi}${pt}`}
 function render(){$('#nav').innerHTML=TABS.map((t,i)=>`<button class="${i==tab?'on':''}" onclick="tab=${i};render()">${t}</button>`).join('');
-  $('#m').innerHTML=fresh()+[estuario,parana,viento,aciertos][tab]()}
-(async()=>{try{S=await (await fetch('data/site.json?'+Date.now())).json();try{R=await (await fetch('data/resumen.json?'+Date.now())).json()}catch(e){}
+  $('#m').innerHTML=fresh()+[estuario,parana,viento,historial][tab]()}
+(async()=>{try{S=await (await fetch('data/site.json?'+Date.now())).json();try{HI=await (await fetch('data/hist/index.json?'+Date.now())).json();sel.hd=HI.dias.at(-1);await loadDay()}catch(e){HI={dias:[]}}
   $('#gen').textContent='Actualizado '+fmt(new Date(S.generado_utc));render()}catch(e){$('#gen').textContent='No se pudieron cargar los datos'}})();
 </script></body></html>

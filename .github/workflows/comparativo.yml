@@ -1,4 +1,4 @@
-name: Comparativo diario calado
+name: Comparativo diario calado y pagina
 
 on:
   workflow_dispatch:
@@ -7,7 +7,8 @@ on:
         description: "Dia a comparar AAAA-MM-DD (vacio = ayer ART)"
         required: false
   schedule:
-    - cron: "40 14 * * *"   # 11:40 ART, despues de captura INA (13:00 UTC) y SHN
+    - cron: "40 14 * * *"   # 11:40 ART: comparativo diario + pagina
+    - cron: "10 */3 * * *"  # cada 3 h: solo refresca la pagina
 
 permissions:
   contents: write
@@ -39,16 +40,21 @@ jobs:
           python-version: "3.11"
       - name: Instalar dependencias
         run: pip install numpy pandas
-      - name: Correr comparativo
+      - name: Correr comparativo (solo corrida diaria o manual)
+        if: github.event.schedule != '10 */3 * * *'
         env:
           BASE: "."
         run: python comparativo_diario.py ${{ github.event.inputs.fecha }}
+      - name: Armar datos de la pagina
+        env:
+          BASE: "."
+        run: python build_site.py
       - name: Commitear resultados
         if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/
+          git add data/ docs/
           git diff --staged --quiet || git commit -m "Comparativo $(date -u +%Y-%m-%dT%H:%M:%SZ)"
           git pull --rebase origin main
           git push

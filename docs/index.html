@@ -33,9 +33,9 @@ svg{width:100%;height:auto;display:block}footer{padding:12px 18px 30px;font-size
 <div id="login"><form class="box" onsubmit="doLogin(event)"><img class="logo" src="logo.png" alt="" onerror="this.style.display='none'"><h2>MULTIPAR S.A.</h2><p>Calado · Río de la Plata y Paraná<br>Acceso para operaciones y prácticos</p>
 <input id="u" placeholder="Usuario" autocomplete="username" autocapitalize="none"><input id="p" type="password" placeholder="Contraseña" autocomplete="current-password"><button>Ingresar</button><div id="err"></div></form></div>
 <nav id="nav"></nav><main id="m"></main>
-<footer>Datos: SHN (alturas y pronósticos de marea), INA (Paraná y Delta), SMN (viento), CARP (históricos). Horas ART. Información de apoyo: <b>no es un dato oficial</b>; verificar siempre con la fuente.</footer>
+<footer>Datos: SHN (alturas y pronósticos de marea) e INA (Paraná y Delta). Horas ART. Información de apoyo: <b>no es un dato oficial</b>; verificar siempre con la fuente.</footer>
 <script>
-const TABS=['Estuario','Paraná','Viento','Historial'];let S,tab=0,sel={},HI=null,HD={};
+const TABS=['Estuario','Paraná','Historial'];let S,tab=0,sel={},HI=null,HD={};
 const $=(s,e=document)=>e.querySelector(s);
 let KEY=null;const b64=x=>Uint8Array.from(atob(x),c=>c.charCodeAt(0));
 async function pbk(pw,salt){const k=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveKey']);return crypto.subtle.deriveKey({name:'PBKDF2',salt,iterations:200000,hash:'SHA-256'},k,{name:'AES-GCM',length:256},false,['decrypt'])}
@@ -64,7 +64,7 @@ function chart(series,{w=560,h=300,unit='m',now=true}={}){
   return o+'</svg><div class="lg">'+series.filter(s=>s.n).map(s=>`<span><i style="background:${s.c}"></i>${s.n}</span>`).join('')+'</div>'}
 function pick(id,opts,cb){return`<select id="${id}" onchange="sel['${id}']=this.value;render()">`+opts.map(o=>`<option ${sel[id]==o?'selected':''}>${o}</option>`).join('')+'</select>'}
 const AGE=(iso)=>{const h=(Date.now()-new Date(iso))/36e5;return h}
-function fresh(){let w='';const chk=[['SHN alturas',S.shn_obs_capturado],['SHN pronóstico',S.shn_pron&&S.shn_pron.capturado_utc],['INA',S.ina_capturado_utc],['SMN viento',S.viento&&S.viento.capturado_utc]];
+function fresh(){let w='';const chk=[['SHN alturas',S.shn_obs_capturado],['SHN pronóstico',S.shn_pron&&S.shn_pron.capturado_utc],['INA',S.ina_capturado_utc]];
   for(const[n,t]of chk){if(!t)continue;const h=AGE(t);if(h>30)w+=`<div class="warn">⚠ ${n}: último dato de hace ${Math.round(h)} h</div>`}return w}
 const SHNKEY={'Oyarvide':'CANAL PUNTA INDIO','La Plata':'PUERTO LA PLATA','Buenos Aires':'PUERTO DE BUENOS AIRES','San Fernando':'SAN FERNANDO'};
 const INAK={'San Fernando':'san_fernando','Buenos Aires':'buenos_aires','La Plata':'la_plata','Martín García':'martin_garcia'};
@@ -100,11 +100,10 @@ function historial(){if(!HI)return'<p class="mu">Cargando historial…</p>';cons
   const ik=INAK[n];if(ik&&d.ina_pron[ik]&&d.ina_pron[ik].pts.length>3)ser.push({n:'INA pronóstico',c:'var(--c)',dash:1,pts:d.ina_pron[ik].pts.map(p=>[DT(d.fecha,p[0]),p[1]])});
   if(ik&&d.ina_obs[ik]&&d.ina_obs[ik].length>3)ser.push({n:'INA observado',c:'var(--w)',sw:1.5,pts:d.ina_obs[ik].map(p=>[DT(d.fecha,p[0]),p[1]])});
   const tb=ev.length?`<div class="wrap"><table><tr><th>Evento</th><th>Pronóstico SHN</th><th>Altura (m)</th></tr>`+ev.map(e=>`<tr><td>${e.estado.toLowerCase()}</td><td>${e.t}</td><td>${e.h.toFixed(2)}</td></tr>`).join('')+'</table></div>':'<p class="mu">Sin pronóstico SHN para esta estación ese día.</p>';
-  let vi='';const vk=SMNK[n]||n;if(d.viento&&d.viento[vk]){vi=`<div class="card"><b>Viento pronosticado (SMN, ciclo ${d.viento_ciclo.slice(0,13)} UTC)</b>`+chart([{n:'viento 10 m (nudos)',c:'var(--a)',pts:d.viento[vk].map(x=>[+new Date(x[0]),x[1]*3.6/1.852])}],{unit:'kn',now:false})+'</div>'}
   const pk=PAR.filter(k=>d.ina_obs[k]);const pt=pk.length?`<div class="card"><b>Paraná · INA observado ese día</b><div class="wrap"><table><tr><th>Estación</th><th>Observado (m)</th><th>Pron. INA (m)</th></tr>`+pk.map(k=>{const o=d.ina_obs[k],p=d.ina_pron[k];return`<tr><td>${NM[k]||k}</td><td>${(o.reduce((a,b)=>a+b[1],0)/o.length).toFixed(2)}</td><td>${p&&p.pts.length?(p.pts.reduce((a,b)=>a+b[1],0)/p.pts.length).toFixed(2):'—'}</td></tr>`}).join('')+'</table></div></div>':'';
-  return head+` ${pick('he',names).replace("render()","render()")}${chart(ser,{now:false})}${tb}</div>${vi}${pt}`}
+  return head+` ${pick('he',names).replace("render()","render()")}${chart(ser,{now:false})}${tb}</div>${pt}`}
 function render(){$('#nav').innerHTML=TABS.map((t,i)=>`<button class="${i==tab?'on':''}" onclick="tab=${i};render()">${t}</button>`).join('');
-  $('#m').innerHTML=fresh()+[estuario,parana,viento,historial][tab]()}
+  $('#m').innerHTML=fresh()+[estuario,parana,historial][tab]()}
 async function boot(){try{S=await getJ('data/site.enc')}catch(e){$('#login').style.display='flex';$('#err').textContent='No se pudieron descifrar los datos (¿sesión vencida?)';try{sessionStorage.removeItem('k')}catch(x){};return}
   $('#login').style.display='none';$('#out').style.display='block';
   try{HI=await getJ('data/hist/index.enc');sel.hd=HI.dias.at(-1);await loadDay()}catch(e){HI={dias:[]}}

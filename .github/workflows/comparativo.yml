@@ -39,15 +39,17 @@ jobs:
         with:
           python-version: "3.11"
       - name: Instalar dependencias
-        run: pip install numpy pandas
+        run: pip install numpy pandas cryptography
       - name: Correr comparativo (solo corrida diaria o manual)
         if: github.event.schedule != '10 */3 * * *'
         env:
           BASE: "."
         run: python comparativo_diario.py ${{ github.event.inputs.fecha }}
-      - name: Armar datos de la pagina
+      - name: Armar datos de la pagina (cifrados)
         env:
           BASE: "."
+          SITE_KEY: ${{ secrets.SITE_KEY }}
+          SITE_USERS: ${{ secrets.SITE_USERS }}
         run: python build_site.py
       - name: Commitear resultados
         if: always()

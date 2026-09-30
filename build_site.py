@@ -59,7 +59,7 @@ lw = None
 for l in open(os.path.join(SMN, 'data/historico_viento.jsonl')):
     try: lw = json.loads(l)
     except: pass
-if lw:
+if False:
     site['viento'] = {'ciclo_init': lw['ciclo_init'], 'capturado_utc': lw['capturado_en'],
                       'estaciones': {k: [[p['valido_para'], round(p['viento_10m_ms'], 2), round(p['direccion_10m_deg'])] for p in v[:73]] for k, v in lw['estaciones'].items()}}
 
@@ -134,7 +134,7 @@ for D in dias_all:
             if pts: day['ina_pron'][slug] = {'corrida': e.get('corrida_forecastdate'), 'pts': pts}
     pw = [x for x in wind_list if x[0] <= ini_utc]
     day['viento'] = {}
-    if pw:
+    if False:
         r = pw[-1][1]; day['viento_ciclo'] = r['ciclo_init']
         for k, v in r['estaciones'].items():
             pts = [[p['valido_para'], round(p['viento_10m_ms'], 2), round(p['direccion_10m_deg'])] for p in v]

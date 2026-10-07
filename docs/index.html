@@ -22,31 +22,15 @@ table{border-collapse:collapse;width:100%;font-size:14px}th,td{padding:6px 7px;b
 .lg span{display:inline-block;margin-right:12px;font-size:13px;color:var(--mu)}.lg i{display:inline-block;width:12px;height:3px;margin-right:4px;vertical-align:middle}
 svg{width:100%;height:auto;display:block}footer{padding:12px 18px 30px;font-size:12px;color:var(--mu);max-width:980px;margin:auto}
 .nb{border:1px solid var(--bd);background:var(--card);color:var(--tx);padding:8px 13px;border-radius:9px;font-size:15px;cursor:pointer}
-#login{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:20px;z-index:10;background:rgba(3,10,18,.55);backdrop-filter:blur(3px)}
-#login .box{width:100%;max-width:360px;background:rgba(10,30,50,.88);border:1px solid var(--bd);border-radius:18px;padding:26px 22px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.6)}
-#login .logo{height:96px;max-width:240px;margin:0 auto 8px;display:block;padding:6px 10px}#login h2{margin:8px 0 2px;font-size:18px}#login p{margin:0 0 16px;color:var(--mu);font-size:13px}
-#login input{width:100%;margin:6px 0}#login button{width:100%;margin-top:12px;padding:12px;border:0;border-radius:10px;background:linear-gradient(135deg,var(--acc),#3ab6ea);color:#fff;font-size:16px;font-weight:600;cursor:pointer}
-#err{color:#ff8c8c;font-size:13px;min-height:18px;margin-top:8px}
 </style></head><body>
 <header><img class="logo" src="logo.png" alt="MULTIPAR" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><div class="logofb">MULTIPAR</div>
-<div class="ttl"><h1>Calado · Río de la Plata y Paraná</h1><div class="sub" id="gen">—</div></div><button class="out" id="out" style="display:none" onclick="logout()">Salir</button></header>
-<div id="login"><form class="box" onsubmit="doLogin(event)"><img class="logo" src="logo.png" alt="" onerror="this.style.display='none'"><h2>MULTIPAR S.A.</h2><p>Calado · Río de la Plata y Paraná<br>Acceso para operaciones y prácticos</p>
-<input id="u" placeholder="Usuario" autocomplete="username" autocapitalize="none"><input id="p" type="password" placeholder="Contraseña" autocomplete="current-password"><button>Ingresar</button><div id="err"></div></form></div>
+<div class="ttl"><h1>Calado · Río de la Plata y Paraná</h1><div class="sub" id="gen">—</div></div></header>
 <nav id="nav"></nav><main id="m"></main>
 <footer>Datos: SHN (alturas y pronósticos de marea) e INA (Paraná y Delta). Horas ART. Información de apoyo: <b>no es un dato oficial</b>; verificar siempre con la fuente.</footer>
 <script>
 const TABS=['Estuario','Paraná','Historial'];let S,tab=0,sel={},HI=null,HD={};
 const $=(s,e=document)=>e.querySelector(s);
-let KEY=null;const b64=x=>Uint8Array.from(atob(x),c=>c.charCodeAt(0));
-async function pbk(pw,salt){const k=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveKey']);return crypto.subtle.deriveKey({name:'PBKDF2',salt,iterations:200000,hash:'SHA-256'},k,{name:'AES-GCM',length:256},false,['decrypt'])}
-async function unlock(user,pw){const acc=await (await fetch('data/access.json?'+Date.now())).json();
-  const id=[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(user.trim().toLowerCase())))].map(x=>x.toString(16).padStart(2,'0')).join('');
-  const r=acc.users.find(x=>x.id==id);if(!r)throw 0;const wk=await pbk(pw,b64(r.s));
-  const raw=await crypto.subtle.decrypt({name:'AES-GCM',iv:b64(r.iv)},wk,b64(r.w));return new Uint8Array(raw)}
-async function setKey(raw){KEY=await crypto.subtle.importKey('raw',raw,'AES-GCM',false,['decrypt'])}
-async function getJ(path){const t=await (await fetch(path+'?'+Date.now())).text();const d=b64(t.trim());const p=await crypto.subtle.decrypt({name:'AES-GCM',iv:d.slice(0,12)},KEY,d.slice(12));return JSON.parse(new TextDecoder().decode(p))}
-function logout(){try{sessionStorage.removeItem('k')}catch(e){}location.reload()}
-async function doLogin(e){e.preventDefault();$('#err').textContent='';try{const raw=await unlock($('#u').value,$('#p').value);try{sessionStorage.setItem('k',btoa(String.fromCharCode(...raw)))}catch(e){}await setKey(raw);await boot()}catch(x){$('#err').textContent='Usuario o contraseña incorrectos'}}
+async function getJ(path){const r=await fetch(path+'?'+Date.now());if(!r.ok)throw new Error(r.status);return r.json()}
 const ART=t=>new Date(t+':00-03:00');                     // 'YYYY-MM-DDTHH:MM' ART
 const fmt=d=>d.toLocaleString('es-AR',{timeZone:'America/Argentina/Buenos_Aires',weekday:'short',day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false});
 const hh=d=>d.toLocaleTimeString('es-AR',{timeZone:'America/Argentina/Buenos_Aires',hour:'2-digit',minute:'2-digit',hour12:false});
@@ -90,7 +74,7 @@ function viento(){const V=S.viento;if(!V)return'<p>Sin datos de viento</p>';cons
 const SMNK={'Buenos Aires':'Buenos Aires (Palermo)','Oyarvide':'Oyarvide (Canal Punta Indio)','San Clemente':'San Clemente del Tuyú'};
 const DT=(ds,hm)=>+new Date(ds+'T'+hm+':00-03:00');
 function shiftDay(n){const i=HI.dias.indexOf(sel.hd)+n;if(i>=0&&i<HI.dias.length){sel.hd=HI.dias[i];loadDay()}}
-async function loadDay(){if(!HD[sel.hd]){try{HD[sel.hd]=await getJ('data/hist/'+sel.hd+'.enc')}catch(e){HD[sel.hd]=null}}render()}
+async function loadDay(){if(!HD[sel.hd]){try{HD[sel.hd]=await getJ('data/hist/'+sel.hd+'.json')}catch(e){HD[sel.hd]=null}}render()}
 function historial(){if(!HI)return'<p class="mu">Cargando historial…</p>';const d=HD[sel.hd];const dias=HI.dias;
   const head=`<div class="card"><button class="nb" onclick="shiftDay(-1)">◀</button> <select onchange="sel.hd=this.value;loadDay()">${dias.slice().reverse().map(x=>`<option ${x==sel.hd?'selected':''}>${x}</option>`).join('')}</select> <button class="nb" onclick="shiftDay(1)">▶</button> <small class="mu">${dias.length} días disponibles</small>`;
   if(!d)return head+'<p class="mu">Sin datos para ese día.</p></div>';
@@ -104,11 +88,8 @@ function historial(){if(!HI)return'<p class="mu">Cargando historial…</p>';cons
   return head+` ${pick('he',names).replace("render()","render()")}${chart(ser,{now:false})}${tb}</div>${pt}`}
 function render(){$('#nav').innerHTML=TABS.map((t,i)=>`<button class="${i==tab?'on':''}" onclick="tab=${i};render()">${t}</button>`).join('');
   $('#m').innerHTML=fresh()+[estuario,parana,historial][tab]()}
-async function boot(){try{S=await getJ('data/site.enc')}catch(e){$('#login').style.display='flex';$('#err').textContent='No se pudieron descifrar los datos (¿sesión vencida?)';try{sessionStorage.removeItem('k')}catch(x){};return}
-  $('#login').style.display='none';$('#out').style.display='block';
-  try{HI=await getJ('data/hist/index.enc');sel.hd=HI.dias.at(-1);await loadDay()}catch(e){HI={dias:[]}}
+async function boot(){try{S=await getJ('data/site.json')}catch(e){$('#m').innerHTML='<p class="warn">No se pudieron cargar los datos. Reintentá en unos minutos.</p>';return}
+  try{HI=await getJ('data/hist/index.json');sel.hd=HI.dias.at(-1);await loadDay()}catch(e){HI={dias:[]}}
   $('#gen').textContent='Actualizado '+fmt(new Date(S.generado_utc));render()}
-(async()=>{let k=null;try{k=sessionStorage.getItem('k')}catch(e){}
-  if(k){try{await setKey(b64(k));await boot();return}catch(e){}}
-  $('#login').style.display='flex'})();
+boot();
 </script></body></html>

@@ -3,7 +3,7 @@ import csv, glob, json, os, shutil
 from datetime import datetime, timedelta
 BASE = os.environ.get('BASE', '.')
 SHN, INA, SMN = [os.path.join(BASE, d) for d in ('shn', 'ina', 'smn')]
-OUT = '_plain/data'; os.makedirs(OUT, exist_ok=True)   # texto plano: NO se publica; se cifra a docs/data
+OUT = "_plain/data"; os.makedirs(OUT, exist_ok=True)   # carpeta de trabajo; se publica en docs/data
 now = datetime.utcnow(); now_art = now - timedelta(hours=3)
 OBS_HORAS = 96
 
@@ -146,31 +146,13 @@ print('historial:', len(hechos), 'dias')
 print('site.json', os.path.getsize(os.path.join(OUT, 'site.json')) // 1024, 'KB')
 
 
-# ================= CIFRADO: lo unico que se publica en docs/data es texto cifrado =================
-import base64, hashlib
-def cifrar_todo():
-    key = os.environ.get('SITE_KEY', ''); users = os.environ.get('SITE_USERS', '')
-    if not key or not users:
-        print('[AVISO] Faltan SITE_KEY / SITE_USERS (secrets del repo): no se publican datos.'); return
-    from cryptography.hazmat.primitives.ciphers.aead import AESGCM
-    K = hashlib.pbkdf2_hmac('sha256', key.encode(), b'calado-multipar', 200000, 32)
+# ================= PUBLICACION: datos en texto plano (sin contrasena) =================
+def publicar():
     pub = 'docs/data'
     if os.path.isdir(pub): shutil.rmtree(pub)
     os.makedirs(os.path.join(pub, 'hist'))
-    def enc(src, dst):
-        iv = os.urandom(12); ct = AESGCM(K).encrypt(iv, open(src, 'rb').read(), None)
-        open(dst, 'w').write(base64.b64encode(iv + ct).decode())
-    enc('_plain/data/site.json', pub + '/site.enc')
+    shutil.copy('_plain/data/site.json', pub + '/site.json')
     for f in glob.glob('_plain/data/hist/*.json'):
-        enc(f, os.path.join(pub, 'hist', os.path.basename(f)[:-5] + '.enc'))
-    acc = []
-    for par in users.split(','):
-        if ':' not in par: continue
-        u, p = par.split(':', 1); u = u.strip().lower()
-        salt = os.urandom(16); iv = os.urandom(12)
-        wk = hashlib.pbkdf2_hmac('sha256', p.encode(), salt, 200000, 32)
-        w = AESGCM(wk).encrypt(iv, K, None)
-        acc.append({'id': hashlib.sha256(u.encode()).hexdigest(), 's': base64.b64encode(salt).decode(), 'iv': base64.b64encode(iv).decode(), 'w': base64.b64encode(w).decode()})
-    json.dump({'users': acc}, open(pub + '/access.json', 'w'))
-    print('cifrado OK:', len(acc), 'usuarios')
-cifrar_todo()
+        shutil.copy(f, os.path.join(pub, 'hist', os.path.basename(f)))
+    print('publicado en texto plano')
+publicar()

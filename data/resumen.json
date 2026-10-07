@@ -1,5 +1,5 @@
 {
-  "actualizado": "2026-10-07T09:48:22.064095Z",
+  "actualizado": "2026-10-07T20:09:01.200406Z",
   "dias": [
     "2026-09-29",
     "2026-09-30",
@@ -18,11 +18,11 @@
   "por_estacion": {
     "Oyarvide (Punta Indio)": {
       "shn": {
-        "n": 27,
-        "mae_alt_m": 0.13,
-        "sesgo_alt_m": 0.091,
-        "mae_hora_min": 33.4,
-        "sesgo_hora_min": -5.5
+        "n": 28,
+        "mae_alt_m": 0.134,
+        "sesgo_alt_m": 0.096,
+        "mae_hora_min": 32.5,
+        "sesgo_hora_min": -5.0
       }
     },
     "La Plata": {
@@ -36,20 +36,20 @@
     },
     "Buenos Aires": {
       "shn": {
-        "n": 27,
-        "mae_alt_m": 0.111,
+        "n": 28,
+        "mae_alt_m": 0.108,
         "sesgo_alt_m": 0.013,
-        "mae_hora_min": 31.9,
-        "sesgo_hora_min": -11.9
+        "mae_hora_min": 31.3,
+        "sesgo_hora_min": -12.0
       }
     },
     "San Fernando": {
       "shn": {
-        "n": 27,
-        "mae_alt_m": 0.118,
-        "sesgo_alt_m": -0.009,
-        "mae_hora_min": 44.5,
-        "sesgo_hora_min": -16.1
+        "n": 28,
+        "mae_alt_m": 0.116,
+        "sesgo_alt_m": -0.006,
+        "mae_hora_min": 44.2,
+        "sesgo_hora_min": -16.8
       },
       "ina": {
         "n": 21,

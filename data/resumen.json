@@ -1,5 +1,5 @@
 {
-  "actualizado": "2026-10-14T18:53:55.359907Z",
+  "actualizado": "2026-10-15T18:39:05.857489Z",
   "dias": [
     "2026-09-29",
     "2026-09-30",
@@ -15,64 +15,65 @@
     "2026-10-10",
     "2026-10-11",
     "2026-10-12",
-    "2026-10-13"
+    "2026-10-13",
+    "2026-10-14"
   ],
   "modelo_norden": {
-    "n_calibracion": 774,
-    "c0": 0.27,
-    "c1": 0.071
+    "n_calibracion": 798,
+    "c0": 0.266,
+    "c1": 0.068
   },
   "por_estacion": {
     "Oyarvide (Punta Indio)": {
       "shn": {
-        "n": 47,
-        "mae_alt_m": 0.136,
-        "sesgo_alt_m": 0.084,
-        "mae_hora_min": 30.1,
-        "sesgo_hora_min": -7.6
+        "n": 50,
+        "mae_alt_m": 0.132,
+        "sesgo_alt_m": 0.082,
+        "mae_hora_min": 30.6,
+        "sesgo_hora_min": -7.5
       }
     },
     "La Plata": {
       "shn": {
-        "n": 47,
-        "mae_alt_m": 0.123,
-        "sesgo_alt_m": -0.005,
-        "mae_hora_min": 36.7,
-        "sesgo_hora_min": -17.4
+        "n": 50,
+        "mae_alt_m": 0.122,
+        "sesgo_alt_m": 0.002,
+        "mae_hora_min": 35.8,
+        "sesgo_hora_min": -16.0
       }
     },
     "Buenos Aires": {
       "shn": {
-        "n": 50,
-        "mae_alt_m": 0.116,
-        "sesgo_alt_m": 0.029,
-        "mae_hora_min": 31.2,
-        "sesgo_hora_min": -9.9
+        "n": 54,
+        "mae_alt_m": 0.113,
+        "sesgo_alt_m": 0.033,
+        "mae_hora_min": 29.9,
+        "sesgo_hora_min": -8.7
       }
     },
     "San Fernando": {
       "shn": {
-        "n": 49,
-        "mae_alt_m": 0.128,
-        "sesgo_alt_m": 0.013,
-        "mae_hora_min": 42.0,
-        "sesgo_hora_min": -15.9
+        "n": 53,
+        "mae_alt_m": 0.127,
+        "sesgo_alt_m": 0.017,
+        "mae_hora_min": 41.9,
+        "sesgo_hora_min": -15.1
       },
       "ina": {
-        "n": 44,
-        "mae_alt_m": 0.15,
-        "sesgo_alt_m": 0.072,
-        "mae_hora_min": 46.1,
-        "sesgo_hora_min": 19.1
+        "n": 48,
+        "mae_alt_m": 0.146,
+        "sesgo_alt_m": 0.07,
+        "mae_hora_min": 47.1,
+        "sesgo_hora_min": 19.9
       }
     },
     "Pilote Norden": {
       "mod": {
-        "n": 53,
-        "mae_alt_m": 0.257,
-        "sesgo_alt_m": -0.042,
-        "mae_hora_min": 45.1,
-        "sesgo_hora_min": 5.7
+        "n": 57,
+        "mae_alt_m": 0.25,
+        "sesgo_alt_m": -0.05,
+        "mae_hora_min": 44.6,
+        "sesgo_hora_min": 8.0
       }
     }
   }

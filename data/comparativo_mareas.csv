@@ -564,3 +564,36 @@ fecha,estacion,evento,real_hora,real_alt,shn_hora,shn_alt,shn_err_min,shn_err_m,
 2026-10-15,Pilote Norden,PLEAMAR,10:27,1.49,no pronostica,,,,no pronostica,,,,10:40,1.49,-13,0.01
 2026-10-15,Pilote Norden,BAJAMAR,15:15,1.12,no pronostica,,,,no pronostica,,,,15:00,1.36,15,-0.24
 2026-10-15,Pilote Norden,PLEAMAR,22:30,1.75,no pronostica,,,,no pronostica,,,,21:40,1.65,50,0.1
+2026-10-16,Mar del Plata,BAJAMAR,04:47,0.64,no pronostica,,,,no pronostica,,,,no disponible,,,
+2026-10-16,Mar del Plata,PLEAMAR,10:11,1.46,no pronostica,,,,no pronostica,,,,no disponible,,,
+2026-10-16,Mar del Plata,BAJAMAR,18:32,0.33,no pronostica,,,,no pronostica,,,,no disponible,,,
+2026-10-16,San Clemente,PLEAMAR,01:55,1.44,no pronostica,,,,no pronostica,,,,no disponible,,,
+2026-10-16,San Clemente,BAJAMAR,07:45,1.06,no pronostica,,,,no pronostica,,,,no disponible,,,
+2026-10-16,San Clemente,PLEAMAR,15:15,1.67,no pronostica,,,,no pronostica,,,,no disponible,,,
+2026-10-16,San Clemente,BAJAMAR,20:35,0.92,no pronostica,,,,no pronostica,,,,no disponible,,,
+2026-10-16,Atalaya,BAJAMAR,01:27,1.01,no pronostica,,,,no pronostica,,,,no disponible,,,
+2026-10-16,Atalaya,PLEAMAR,08:15,1.69,no pronostica,,,,no pronostica,,,,no disponible,,,
+2026-10-16,Atalaya,BAJAMAR,13:40,1.27,no pronostica,,,,no pronostica,,,,no disponible,,,
+2026-10-16,Atalaya,PLEAMAR,20:31,1.81,no pronostica,,,,no pronostica,,,,no disponible,,,
+2026-10-16,Oyarvide (Punta Indio),BAJAMAR,00:43,0.96,00:30,1.0,13,-0.04,no pronostica,,,,no disponible,,,
+2026-10-16,Oyarvide (Punta Indio),PLEAMAR,08:15,1.7,sin dato,,,,no pronostica,,,,no disponible,,,
+2026-10-16,Oyarvide (Punta Indio),BAJAMAR,12:28,1.24,12:30,1.0,-2,0.24,no pronostica,,,,no disponible,,,
+2026-10-16,Oyarvide (Punta Indio),PLEAMAR,17:45,1.85,18:00,1.95,-15,-0.1,no pronostica,,,,no disponible,,,
+2026-10-16,La Plata,BAJAMAR,03:19,1.16,04:00,1.3,-41,-0.14,sin dato,,,,no disponible,,,
+2026-10-16,La Plata,PLEAMAR,11:15,1.81,10:30,1.7,45,0.11,sin dato,,,,no disponible,,,
+2026-10-16,La Plata,BAJAMAR,15:45,1.44,17:00,1.4,-75,0.04,sin dato,,,,no disponible,,,
+2026-10-16,La Plata,PLEAMAR,22:15,1.87,22:00,2.2,15,-0.33,sin dato,,,,no disponible,,,
+2026-10-16,Buenos Aires,BAJAMAR,05:38,1.12,06:00,1.3,-22,-0.18,sin dato,,,,no disponible,,,
+2026-10-16,Buenos Aires,PLEAMAR,11:09,1.99,12:30,1.8,-80,0.19,sin dato,,,,no disponible,,,
+2026-10-16,Buenos Aires,BAJAMAR,17:35,1.36,19:00,1.4,-85,-0.04,sin dato,,,,no disponible,,,
+2026-10-16,Buenos Aires,PLEAMAR,23:45,1.94,00:00,2.25,-15,-0.31,sin dato,,,,no disponible,,,
+2026-10-16,San Fernando,BAJAMAR,06:22,1.14,07:00,1.4,-38,-0.26,07:00,1.25,-38,-0.11,no disponible,,,
+2026-10-16,San Fernando,PLEAMAR,11:47,2.02,13:30,1.9,-103,0.12,11:47,1.68,-1,0.34,no disponible,,,
+2026-10-16,San Fernando,BAJAMAR,18:33,1.39,20:00,1.45,-87,-0.06,17:58,1.36,35,0.03,no disponible,,,
+2026-10-16,Martín García,BAJAMAR,06:51,1.55,no pronostica,,,,sin dato,,,,no disponible,,,
+2026-10-16,Martín García,PLEAMAR,12:35,2.04,no pronostica,,,,sin dato,,,,no disponible,,,
+2026-10-16,Martín García,BAJAMAR,20:39,1.26,no pronostica,,,,sin dato,,,,no disponible,,,
+2026-10-16,Pilote Norden,BAJAMAR,03:40,1.24,no pronostica,,,,no pronostica,,,,04:10,1.14,-29,0.1
+2026-10-16,Pilote Norden,PLEAMAR,11:22,1.86,no pronostica,,,,no pronostica,,,,11:00,1.5,22,0.36
+2026-10-16,Pilote Norden,BAJAMAR,16:06,1.48,no pronostica,,,,no pronostica,,,,15:20,1.33,46,0.15
+2026-10-16,Pilote Norden,PLEAMAR,22:52,1.88,no pronostica,,,,no pronostica,,,,21:10,1.66,102,0.22

@@ -1,5 +1,5 @@
 {
-  "actualizado": "2026-11-16T23:30:40.282869Z",
+  "actualizado": "2026-11-17T22:39:11.952819Z",
   "dias": [
     "2026-09-29",
     "2026-09-30",
@@ -48,48 +48,49 @@
     "2026-11-12",
     "2026-11-13",
     "2026-11-14",
-    "2026-11-15"
+    "2026-11-15",
+    "2026-11-16"
   ],
   "modelo_norden": {
-    "n_calibracion": 1553,
+    "n_calibracion": 1576,
     "c0": 0.255,
     "c1": 0.067
   },
   "por_estacion": {
     "Oyarvide (Punta Indio)": {
       "shn": {
-        "n": 152,
+        "n": 153,
         "mae_alt_m": 0.125,
-        "sesgo_alt_m": 0.053,
-        "mae_hora_min": 34.3,
-        "sesgo_hora_min": -6.0
+        "sesgo_alt_m": 0.054,
+        "mae_hora_min": 34.2,
+        "sesgo_hora_min": -5.9
       }
     },
     "La Plata": {
       "shn": {
-        "n": 142,
+        "n": 144,
         "mae_alt_m": 0.129,
-        "sesgo_alt_m": 0.029,
-        "mae_hora_min": 40.2,
+        "sesgo_alt_m": 0.031,
+        "mae_hora_min": 40.0,
         "sesgo_hora_min": -14.0
       }
     },
     "Buenos Aires": {
       "shn": {
-        "n": 150,
-        "mae_alt_m": 0.125,
+        "n": 151,
+        "mae_alt_m": 0.124,
         "sesgo_alt_m": 0.054,
         "mae_hora_min": 36.6,
-        "sesgo_hora_min": -9.1
+        "sesgo_hora_min": -9.3
       }
     },
     "San Fernando": {
       "shn": {
-        "n": 146,
+        "n": 147,
         "mae_alt_m": 0.13,
-        "sesgo_alt_m": 0.032,
+        "sesgo_alt_m": 0.033,
         "mae_hora_min": 45.7,
-        "sesgo_hora_min": -14.6
+        "sesgo_hora_min": -14.8
       },
       "ina": {
         "n": 139,
@@ -101,11 +102,11 @@
     },
     "Pilote Norden": {
       "mod": {
-        "n": 143,
-        "mae_alt_m": 0.239,
-        "sesgo_alt_m": -0.042,
+        "n": 144,
+        "mae_alt_m": 0.242,
+        "sesgo_alt_m": -0.046,
         "mae_hora_min": 53.1,
-        "sesgo_hora_min": 16.3
+        "sesgo_hora_min": 16.7
       }
     }
   }
